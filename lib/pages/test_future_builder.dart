@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_http_test/pages/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class TestFutureBuilder extends StatefulWidget {
@@ -11,13 +12,17 @@ class TestFutureBuilder extends StatefulWidget {
 }
 
 class _TestFutureBuilderState extends State<TestFutureBuilder> {
-  List<Map<String, dynamic>> allUsers = [];
+  List<UserModel> allUsers = [];
   Future getAllUsers() async {
     try {
       var response = await http.get(Uri.parse("https://reqres.in/api/users"));
       List data = (json.decode(response.body) as Map<String, dynamic>)['data'];
       data.forEach((element) {
-        allUsers.add(element);
+        allUsers.add(UserModel(
+          avatar: element['avatar'],
+          email: element['email'],
+          name: "${element['first_name']} ${element['last_name']}",
+        ));
       });
       print(allUsers);
     } catch (e) {
@@ -45,12 +50,11 @@ class _TestFutureBuilderState extends State<TestFutureBuilder> {
               itemBuilder: (context, index) => ListTile(
                 leading: CircleAvatar(
                   backgroundImage: NetworkImage(
-                    "${allUsers[index]['avatar']}",
+                    "${allUsers[index].avatar}",
                   ),
                 ),
-                title: Text(
-                    "${allUsers[index]['first_name']} ${allUsers[index]['last_name']}"),
-                subtitle: Text("${allUsers[index]['email']}"),
+                title: Text(allUsers[index].name),
+                subtitle: Text(allUsers[index].email),
               ),
             );
           }
