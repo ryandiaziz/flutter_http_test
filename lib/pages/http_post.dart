@@ -84,7 +84,7 @@ class _HttpPostState extends State<HttpPost> {
                   // print(dataRespon["name"]);
                   setState(() {
                     hasilResponse =
-                        "${dataResponGet['data']['first_name']} ${dataResponGet['data']['last_name']}- ${dataResponGet['data']['email']} [GET]";
+                        "Nama = ${dataResponGet['data']['first_name']} ${dataResponGet['data']['last_name']}\nEmail = ${dataResponGet['data']['email']} \n[GET]";
                   });
                 },
                 child: const Text("GET"),
@@ -133,13 +133,9 @@ class _HttpPostState extends State<HttpPost> {
             thickness: 1,
           ),
           const SizedBox(height: 10),
-          Center(
-            child: Text(
-              hasilResponse,
-              style: const TextStyle(
-                fontSize: 25,
-              ),
-            ),
+          Text(
+            hasilResponse,
+            style: const TextStyle(fontSize: 23),
           ),
         ],
       ),
