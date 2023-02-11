@@ -108,6 +108,24 @@ class _HttpPostState extends State<HttpPost> {
                 },
                 child: const Text("PUT"),
               ),
+              ElevatedButton(
+                onPressed: () async {
+                  var responseDelete = await http.delete(
+                    Uri.parse("https://reqres.in/api/users/2"),
+                  );
+                  if (responseDelete.statusCode == 204) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Delete berhasil"),
+                      ),
+                    );
+                  }
+                  setState(() {
+                    hasilResponse = "Respon ${responseDelete.statusCode}";
+                  });
+                },
+                child: const Text("DELETE"),
+              ),
             ],
           ),
           const SizedBox(height: 50),
