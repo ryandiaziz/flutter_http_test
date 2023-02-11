@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_http_test/pages/models/user_model.dart';
+
 import 'package:http/http.dart' as http;
+
+import '../models/user_model.dart';
 
 class TestFutureBuilder extends StatefulWidget {
   const TestFutureBuilder({Key? key}) : super(key: key);
