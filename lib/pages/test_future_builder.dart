@@ -15,15 +15,15 @@ class _TestFutureBuilderState extends State<TestFutureBuilder> {
   List<UserModel> allUsers = [];
   Future getAllUsers() async {
     try {
-      var response = await http.get(Uri.parse("https://reqres.in/api/users"));
+      var response = await http.get(
+        Uri.parse("https://reqres.in/api/users"),
+      );
       List data = (json.decode(response.body) as Map<String, dynamic>)['data'];
-      data.forEach((element) {
-        allUsers.add(UserModel(
-          avatar: element['avatar'],
-          email: element['email'],
-          name: "${element['first_name']} ${element['last_name']}",
-        ));
-      });
+      for (var element in data) {
+        allUsers.add(
+          UserModel.fromJson(element),
+        );
+      }
       print(allUsers);
     } catch (e) {
       //print jika terjadi kesalahan
@@ -50,10 +50,11 @@ class _TestFutureBuilderState extends State<TestFutureBuilder> {
               itemBuilder: (context, index) => ListTile(
                 leading: CircleAvatar(
                   backgroundImage: NetworkImage(
-                    "${allUsers[index].avatar}",
+                    allUsers[index].avatar,
                   ),
                 ),
-                title: Text(allUsers[index].name),
+                title: Text(
+                    "${allUsers[index].firstName} ${allUsers[index].lastName}"),
                 subtitle: Text(allUsers[index].email),
               ),
             );
